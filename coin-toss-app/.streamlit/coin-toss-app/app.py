@@ -43,7 +43,7 @@ start_button = st.button('Run')
 if start_button:
     st.write(f'Running the experient of {number_of_trials} trials.')
 
- st.header('Tossing a Coin')
+    st.header('Tossing a Coin')
 
 chart = st.line_chart([0.5])
 
