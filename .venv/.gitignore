@@ -1,6 +1,0 @@
-# Ignore everything in the virtual environment
-*
-# Allow this .gitignore file itself to be tracked
-!.gitignore
-codespace.code-workspace
-coin-toss-app/
