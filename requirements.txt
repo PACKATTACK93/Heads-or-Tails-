@@ -18,7 +18,7 @@ mdurl==0.1.2
 narwhals==1.37.1
 nltk==3.9.1
 numpy>=1.21.6,<1.28.0
-packaging==24.0,<16.8
+packaging>=16.8,<24
 pandas==2.0.3
 pillow==11.2.1
 plotly==5.15.0
