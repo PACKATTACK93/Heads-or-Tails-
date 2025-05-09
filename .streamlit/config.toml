@@ -1,7 +1,12 @@
 [server]
 headless = true
 port = 8501
+<<<<<<< HEAD
 enableCORS = false
+=======
+enableCORS = true
+enableXsrfProtection = true
+>>>>>>> d95a8bf2fd2ec2b5f1850736f881716cbc73c4c1
 
 [browser]
 serverAddress = "localhost"
