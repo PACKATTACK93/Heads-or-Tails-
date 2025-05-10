@@ -181,7 +181,7 @@ if start_button:
     st.write(f'Running the experient of {number_of_trials} trials.')
     mean = toss_coin(number_of_trials)
 
- st.header('Tossing a Coin')
+ st.header('Tossing a Coin'))
 
 chart = st.line_chart([0.5])
 

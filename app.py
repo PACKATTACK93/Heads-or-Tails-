@@ -1,38 +1,64 @@
 import streamlit as st
 import scipy.stats
+import pandas as pd
 import time
 
 # Header
-st.header('Tossing a Coin')
+st.title("Coin Toss Simulation")
+st.write("Simulate tossing a coin multiple times and observe the mean outcome over trials.")
 
-# Slider for number of trials
-number_of_trials = st.slider('Number of trials?', 1, 1000, 10)
+# Sidebar for user inputs
+st.sidebar.header("Simulation Settings")
+number_of_trials = st.sidebar.slider("Number of trials", 1, 1000, 10)
+start_button = st.sidebar.button("Run Simulation")
 
-# Button to start the experiment
-start_button = st.button('Run')
-
-# Initialize the chart
-chart = st.line_chart([0.5])
+# Initialize session state for results
+if "experiment_no" not in st.session_state:
+    st.session_state["experiment_no"] = 0
+if "df_experiment_results" not in st.session_state:
+    st.session_state["df_experiment_results"] = pd.DataFrame(columns=["Experiment", "Trials", "Mean Outcome"])
 
 # Function to simulate coin tosses
+@st.cache_data
 def toss_coin(n):
     trial_outcomes = scipy.stats.bernoulli.rvs(p=0.5, size=n)
-    mean = None
-    outcome_no = 0
+    cumulative_mean = []
     outcome_1_count = 0
 
-    for r in trial_outcomes:
-        outcome_no += 1
-        if r == 1:
-            outcome_1_count += 1
-        mean = outcome_1_count / outcome_no
-        chart.add_rows([mean])
-        time.sleep(0.05)
+    for i, outcome in enumerate(trial_outcomes, start=1):
+        outcome_1_count += outcome
+        cumulative_mean.append(outcome_1_count / i)
 
-    return mean
+    return cumulative_mean
 
-# Run the experiment if the button is clicked
+# Run the simulation
 if start_button:
-    st.write(f'Running the experiment of {number_of_trials} trials.')
-    mean = toss_coin(number_of_trials)
-    st.write(f'Final mean outcome: {mean}')
+    st.session_state["experiment_no"] += 1
+    st.write(f"Running {number_of_trials} trials...")
+    progress = st.progress(0)
+
+    # Simulate coin tosses
+    cumulative_mean = toss_coin(number_of_trials)
+    for i in range(len(cumulative_mean)):
+        progress.progress((i + 1) / number_of_trials)
+
+    # Update results
+    final_mean = cumulative_mean[-1]
+    st.session_state["df_experiment_results"] = pd.concat(
+        [
+            st.session_state["df_experiment_results"],
+            pd.DataFrame(
+                [[st.session_state["experiment_no"], number_of_trials, final_mean]],
+                columns=["Experiment", "Trials", "Mean Outcome"],
+            ),
+        ],
+        ignore_index=True,
+    )
+
+    # Display results
+    st.line_chart(cumulative_mean)
+    st.write(f"Final Mean Outcome: {final_mean:.4f}")
+
+# Display past results
+st.header("Experiment Results")
+st.dataframe(st.session_state["df_experiment_results"])
