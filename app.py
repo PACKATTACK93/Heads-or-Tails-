@@ -2,6 +2,7 @@ import streamlit as st
 import scipy.stats
 import pandas as pd
 import time
+import math
 
 # Header
 st.title("Coin Toss Simulation")
@@ -62,3 +63,27 @@ if start_button:
 # Display past results
 st.header("Experiment Results")
 st.dataframe(st.session_state["df_experiment_results"])
+
+import math
+
+
+def is_prime(n):
+    """Check if a number is prime."""
+    if n <= 1:
+        return False
+    for i in range(2, int(math.sqrt(n) + 1)):
+        if n % i == 0:
+            return False
+    return True
+
+
+def main():
+    """Holds all the main logic."""
+    for i in range(100):
+        if is_prime(i):
+            print(i, end=' ')
+    print()
+
+
+if __name__ == '__main__':
+    main()
