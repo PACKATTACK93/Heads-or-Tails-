@@ -1,2 +1,1 @@
-# coin-toss-app
-# streamlit web app 
+# coin-toss-app developed using streamlit and Render
