@@ -14,4 +14,4 @@ PACKATTACK93/coin-toss-app/.streamlit/config.toml
 git add render.yaml
 git commit -m "Add render.yaml"
 git push
-
+# This file is used to configure Streamlit settings.
