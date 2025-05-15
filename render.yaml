@@ -2,6 +2,7 @@ services:
 - type: web
   name: coin-toss-app
   runtime: python
+  pythonVersion: 3.11.9
   repo: https://github.com/PACKATTACK93/coin-toss-app
   plan: free
   region: oregon
