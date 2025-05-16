@@ -3,7 +3,7 @@ import scipy.stats
 import pandas as pd
 import time
 import math
-
+# Updated app script
 # Header
 st.title("Coin Toss Simulation")
 st.write("Simulate tossing a coin multiple times and observe the mean outcome over trials.")
